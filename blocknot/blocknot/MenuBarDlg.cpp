@@ -1,21 +1,21 @@
 #include "MenuBarDlg.h"
 #pragma warning(disable:4996)
 OPENFILENAME ofn;
-// идентификатор зарегистрированного сообщения FINDMSGSTRING
+// РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ FINDMSGSTRING
 UINT WM_FR = RegisterWindowMessage(FINDMSGSTRING);
 //
 int SizeDoc, MesRet;
 //
-char *BuferText; // max 9,53 МБ (10 000 000 байт)
-char Opffilt[256] = "Текстовые файлы *.txt\0*.txt\0Все файлы *.*\0*.*\0";
+char *BuferText; // max 9,53 РњР‘ (10 000 000 Р±Р°Р№С‚)
+char Opffilt[256] = "РўРµРєСЃС‚РѕРІС‹Рµ С„Р°Р№Р»С‹ *.txt\0*.txt\0Р’СЃРµ С„Р°Р№Р»С‹ *.*\0*.*\0";
 char Sffilt[256] = "*.*\0*.*\0";
 char Opffile[256];
 char Opffiletitle[256];
 char Path[512];
 char TitleWnd[1024];
 
-//TCHAR *BuferText; // max 9,53 МБ (10 000 000 байт)
-//TCHAR Opffilt[256] = "Текстовые файлы *.txt\0*.txt\0Все файлы *.*\0*.*\0";
+//TCHAR *BuferText; // max 9,53 РњР‘ (10 000 000 Р±Р°Р№С‚)
+//TCHAR Opffilt[256] = "РўРµРєСЃС‚РѕРІС‹Рµ С„Р°Р№Р»С‹ *.txt\0*.txt\0Р’СЃРµ С„Р°Р№Р»С‹ *.*\0*.*\0";
 //TCHAR Sffilt[256] = "*.*\0*.*\0";
 //TCHAR Opffile[256];
 //TCHAR Opffiletitle[256];
@@ -47,20 +47,20 @@ void CMenuBarDlg::Cls_OnClose(HWND hwnd)
 BOOL CMenuBarDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 {
 	hDialog = hwnd;
-	// Получим дескриптор текстового поля
+	// РџРѕР»СѓС‡РёРј РґРµСЃРєСЂРёРїС‚РѕСЂ С‚РµРєСЃС‚РѕРІРѕРіРѕ РїРѕР»СЏ
 	hEdit = GetDlgItem(hDialog, IDC_EDIT1);
-	// Создадим строку состояния
+	// РЎРѕР·РґР°РґРёРј СЃС‚СЂРѕРєСѓ СЃРѕСЃС‚РѕСЏРЅРёСЏ
 	hStatus = CreateStatusWindow(WS_CHILD | WS_VISIBLE | CCS_BOTTOM | SBARS_TOOLTIPS | SBARS_SIZEGRIP, 0, hDialog, WM_USER);
-	// Загрузим меню из ресурсов приложения
+	// Р—Р°РіСЂСѓР·РёРј РјРµРЅСЋ РёР· СЂРµСЃСѓСЂСЃРѕРІ РїСЂРёР»РѕР¶РµРЅРёСЏ
 	hMenu = LoadMenu(GetModuleHandle(NULL), MAKEINTRESOURCE(IDR_MENU1));
 	hMenuEn = LoadMenu(GetModuleHandle(NULL), MAKEINTRESOURCE(IDR_MENU2));
 	//hFont = GetDlgItem(hDialog, ID_FRONT);
-	// Присоединим меню к главному окну приложения
+	// РџСЂРёСЃРѕРµРґРёРЅРёРј РјРµРЅСЋ Рє РіР»Р°РІРЅРѕРјСѓ РѕРєРЅСѓ РїСЂРёР»РѕР¶РµРЅРёСЏ
 	SetMenu(hDialog, hMenu);
 	return TRUE;
 }
 
-// Обработчик сообщения WM_COMMAND будет вызван при выборе пункта меню
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕРѕР±С‰РµРЅРёСЏ WM_COMMAND Р±СѓРґРµС‚ РІС‹Р·РІР°РЅ РїСЂРё РІС‹Р±РѕСЂРµ РїСѓРЅРєС‚Р° РјРµРЅСЋ
 void CMenuBarDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
 	switch (id)
@@ -87,10 +87,10 @@ void CMenuBarDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify
 		SetFont();
 		break;
 	case ID_ABOUT:
-		MessageBox(ptr->hDialog, "Блокнот v1.0\nЩебетовский Дмитрий\nЕКО П2", "Справка", MB_OK | MB_ICONINFORMATION);
+		MessageBox(ptr->hDialog, "Р‘Р»РѕРєРЅРѕС‚ v1.0\n", "РЎРїСЂР°РІРєР°", MB_OK | MB_ICONINFORMATION);
 		break;
 	case ID_HELP:
-		MessageBox(ptr->hDialog, "По идее, переход на сайт со спракой...", "Справка", MB_OK | MB_ICONINFORMATION);
+		MessageBox(ptr->hDialog, "РџРѕ РёРґРµРµ, РїРµСЂРµС…РѕРґ РЅР° СЃР°Р№С‚ СЃРѕ СЃРїСЂР°РєРѕР№...", "РЎРїСЂР°РІРєР°", MB_OK | MB_ICONINFORMATION);
 		break;
 	case ID_EXIT:
 		exit();
@@ -101,150 +101,150 @@ void CMenuBarDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify
 		break;
 	case ID_RUS:
 		SetMenu(hDialog, hMenu);
-		SetWindowText(hwnd, "Блокнот");
+		SetWindowText(hwnd, "Р‘Р»РѕРєРЅРѕС‚");
 		break;
 	case ID_CANCEL:
-		// Отменим последнее действие
+		// РћС‚РјРµРЅРёРј РїРѕСЃР»РµРґРЅРµРµ РґРµР№СЃС‚РІРёРµ
 		SendMessage(hEdit, WM_UNDO, 0, 0);
 		break;
 	case ID_CUT:
-		// Удалим выделенный фрагмент текста в буфер обмена
+		// РЈРґР°Р»РёРј РІС‹РґРµР»РµРЅРЅС‹Р№ С„СЂР°РіРјРµРЅС‚ С‚РµРєСЃС‚Р° РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°
 		SendMessage(hEdit, WM_CUT, 0, 0);
 		break;
 	case ID_COPY:
-		// Скопируем выделенный фрагмент текста в буфер обмена
+		// РЎРєРѕРїРёСЂСѓРµРј РІС‹РґРµР»РµРЅРЅС‹Р№ С„СЂР°РіРјРµРЅС‚ С‚РµРєСЃС‚Р° РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°
 		SendMessage(hEdit, WM_COPY, 0, 0);
 		break;
 	case ID_PASTE:
-		// Вставим текст в Edit Control из буфера обмена
+		// Р’СЃС‚Р°РІРёРј С‚РµРєСЃС‚ РІ Edit Control РёР· Р±СѓС„РµСЂР° РѕР±РјРµРЅР°
 		SendMessage(hEdit, WM_PASTE, 0, 0);
 		break;
 	case ID_DEL:
-		// Удалим выделенный фрагмент текста
+		// РЈРґР°Р»РёРј РІС‹РґРµР»РµРЅРЅС‹Р№ С„СЂР°РіРјРµРЅС‚ С‚РµРєСЃС‚Р°
 		SendMessage(hEdit, WM_CLEAR, 0, 0);
 		break;
 	case ID_SELECTALL:
-		// Выделим весь текст в Edit Control
+		// Р’С‹РґРµР»РёРј РІРµСЃСЊ С‚РµРєСЃС‚ РІ Edit Control
 		SendMessage(hEdit, EM_SETSEL, 0, -1);
 		break;
 	case ID_STATUS_BAR:
-		// Если флаг равен TRUE, то строка состояния отображена
+		// Р•СЃР»Рё С„Р»Р°Рі СЂР°РІРµРЅ TRUE, С‚Рѕ СЃС‚СЂРѕРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ РѕС‚РѕР±СЂР°Р¶РµРЅР°
 		if (bShowStatusBar)
 		{
-			// Получим дескриптор главного меню
+			// РџРѕР»СѓС‡РёРј РґРµСЃРєСЂРёРїС‚РѕСЂ РіР»Р°РІРЅРѕРіРѕ РјРµРЅСЋ
 			HMENU hMenu = GetMenu(hDialog);
-			// Снимем отметку с пункта меню "Строка состояния"
+			// РЎРЅРёРјРµРј РѕС‚РјРµС‚РєСѓ СЃ РїСѓРЅРєС‚Р° РјРµРЅСЋ "РЎС‚СЂРѕРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ"
 			CheckMenuItem(hMenu, ID_STATUS_BAR, MF_BYCOMMAND | MF_UNCHECKED);
-			// Скроем строку состояния
+			// РЎРєСЂРѕРµРј СЃС‚СЂРѕРєСѓ СЃРѕСЃС‚РѕСЏРЅРёСЏ
 			ShowWindow(hStatus, SW_HIDE);
 		}
 		else
 		{
-			// Получим дескриптор главного меню
+			// РџРѕР»СѓС‡РёРј РґРµСЃРєСЂРёРїС‚РѕСЂ РіР»Р°РІРЅРѕРіРѕ РјРµРЅСЋ
 			HMENU hMenu = GetMenu(hDialog);
-			// Установим отметку на пункте меню "Строка состояния"
+			// РЈСЃС‚Р°РЅРѕРІРёРј РѕС‚РјРµС‚РєСѓ РЅР° РїСѓРЅРєС‚Рµ РјРµРЅСЋ "РЎС‚СЂРѕРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ"
 			CheckMenuItem(hMenu, ID_STATUS_BAR, MF_BYCOMMAND | MF_CHECKED);
-			// Отобразим строку состояния
+			// РћС‚РѕР±СЂР°Р·РёРј СЃС‚СЂРѕРєСѓ СЃРѕСЃС‚РѕСЏРЅРёСЏ
 			ShowWindow(hStatus, SW_SHOW);
 		}
 		bShowStatusBar = !bShowStatusBar;
 	}
 }
 
-// Обработчик сообщения WM_SIZE будет вызван при изменении размеров главного окна
-// либо при сворачивании/восстановлении главного окна
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕРѕР±С‰РµРЅРёСЏ WM_SIZE Р±СѓРґРµС‚ РІС‹Р·РІР°РЅ РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
+// Р»РёР±Рѕ РїСЂРё СЃРІРѕСЂР°С‡РёРІР°РЅРёРё/РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРё РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
 void CMenuBarDlg::Cls_OnSize(HWND hwnd, UINT state, int cx, int cy)
 {
 	RECT rect1, rect2;
-	// Получим координаты клиентской области главного окна
+	// РџРѕР»СѓС‡РёРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РєР»РёРµРЅС‚СЃРєРѕР№ РѕР±Р»Р°СЃС‚Рё РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
 	GetClientRect(hDialog, &rect1);
-	// Получим координаты единственной секции строки состояния
+	// РџРѕР»СѓС‡РёРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РµРґРёРЅСЃС‚РІРµРЅРЅРѕР№ СЃРµРєС†РёРё СЃС‚СЂРѕРєРё СЃРѕСЃС‚РѕСЏРЅРёСЏ
 	SendMessage(hStatus, SB_GETRECT, 0, (LPARAM)&rect2);
-	// Установим новые размеры текстового поля
+	// РЈСЃС‚Р°РЅРѕРІРёРј РЅРѕРІС‹Рµ СЂР°Р·РјРµСЂС‹ С‚РµРєСЃС‚РѕРІРѕРіРѕ РїРѕР»СЏ
 	MoveWindow(hEdit, rect1.left, rect1.top, rect1.right, rect1.bottom - (rect2.bottom - rect2.top), 1);
-	// Установим размер строки состояния, 
-	// равный ширине клиентской области главного окна
+	// РЈСЃС‚Р°РЅРѕРІРёРј СЂР°Р·РјРµСЂ СЃС‚СЂРѕРєРё СЃРѕСЃС‚РѕСЏРЅРёСЏ, 
+	// СЂР°РІРЅС‹Р№ С€РёСЂРёРЅРµ РєР»РёРµРЅС‚СЃРєРѕР№ РѕР±Р»Р°СЃС‚Рё РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
 	SendMessage(hStatus, WM_SIZE, 0, 0);
 }
 
-// Обработчик WM_INITMENUPOPUP будет вызван непосредственно 
-// перед активизацией всплывающего меню
+// РћР±СЂР°Р±РѕС‚С‡РёРє WM_INITMENUPOPUP Р±СѓРґРµС‚ РІС‹Р·РІР°РЅ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ 
+// РїРµСЂРµРґ Р°РєС‚РёРІРёР·Р°С†РёРµР№ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РјРµРЅСЋ
 void CMenuBarDlg::Cls_OnInitMenuPopup(HWND hwnd, HMENU hMenu, UINT item, BOOL fSystemMenu)
 {
-	if (item == 0) // Активизируется пункт меню "Правка"
+	if (item == 0) // РђРєС‚РёРІРёР·РёСЂСѓРµС‚СЃСЏ РїСѓРЅРєС‚ РјРµРЅСЋ "РџСЂР°РІРєР°"
 	{
-		// Получим границы выделения текста
+		// РџРѕР»СѓС‡РёРј РіСЂР°РЅРёС†С‹ РІС‹РґРµР»РµРЅРёСЏ С‚РµРєСЃС‚Р°
 		DWORD dwPosition = SendMessage(hEdit, EM_GETSEL, 0, 0);
 		WORD wBeginPosition = LOWORD(dwPosition);
 		WORD wEndPosition = HIWORD(dwPosition);
 
-		if (wEndPosition != wBeginPosition) // Выделен ли текст?
+		if (wEndPosition != wBeginPosition) // Р’С‹РґРµР»РµРЅ Р»Рё С‚РµРєСЃС‚?
 		{
-			// Если имеется выделенный текст, 
-			// то сделаем разрешёнными пункты меню "Копировать", "Вырезать" и "Удалить"
+			// Р•СЃР»Рё РёРјРµРµС‚СЃСЏ РІС‹РґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚, 
+			// С‚Рѕ СЃРґРµР»Р°РµРј СЂР°Р·СЂРµС€С‘РЅРЅС‹РјРё РїСѓРЅРєС‚С‹ РјРµРЅСЋ "РљРѕРїРёСЂРѕРІР°С‚СЊ", "Р’С‹СЂРµР·Р°С‚СЊ" Рё "РЈРґР°Р»РёС‚СЊ"
 			EnableMenuItem(hMenu, ID_COPY, MF_BYCOMMAND | MF_ENABLED);
 			EnableMenuItem(hMenu, ID_CUT, MF_BYCOMMAND | MF_ENABLED);
 			EnableMenuItem(hMenu, ID_DEL, MF_BYCOMMAND | MF_ENABLED);
 		}
 		else
 		{
-			// Если отсутствует выделенный текст, 
-			// то сделаем недоступными пункты меню "Копировать", "Вырезать" и "Удалить"
+			// Р•СЃР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РІС‹РґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚, 
+			// С‚Рѕ СЃРґРµР»Р°РµРј РЅРµРґРѕСЃС‚СѓРїРЅС‹РјРё РїСѓРЅРєС‚С‹ РјРµРЅСЋ "РљРѕРїРёСЂРѕРІР°С‚СЊ", "Р’С‹СЂРµР·Р°С‚СЊ" Рё "РЈРґР°Р»РёС‚СЊ"
 			EnableMenuItem(hMenu, ID_COPY, MF_BYCOMMAND | MF_GRAYED);
 			EnableMenuItem(hMenu, ID_CUT, MF_BYCOMMAND | MF_GRAYED);
 			EnableMenuItem(hMenu, ID_DEL, MF_BYCOMMAND | MF_GRAYED);
 		}
 
-		if (IsClipboardFormatAvailable(CF_TEXT)) // Имеется ли текст в буфере обмена?
-			// Если имеется текст в буфере обмена, 
-			// то сделаем разрешённым пункт меню "Вставить"
+		if (IsClipboardFormatAvailable(CF_TEXT)) // РРјРµРµС‚СЃСЏ Р»Рё С‚РµРєСЃС‚ РІ Р±СѓС„РµСЂРµ РѕР±РјРµРЅР°?
+			// Р•СЃР»Рё РёРјРµРµС‚СЃСЏ С‚РµРєСЃС‚ РІ Р±СѓС„РµСЂРµ РѕР±РјРµРЅР°, 
+			// С‚Рѕ СЃРґРµР»Р°РµРј СЂР°Р·СЂРµС€С‘РЅРЅС‹Рј РїСѓРЅРєС‚ РјРµРЅСЋ "Р’СЃС‚Р°РІРёС‚СЊ"
 			EnableMenuItem(hMenu, ID_PASTE, MF_BYCOMMAND | MF_ENABLED);
 		else
-			// Если отсутствует текст в буфере обмена, 
-			// то сделаем недоступным пункт меню "Вставить"
+			// Р•СЃР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С‚РµРєСЃС‚ РІ Р±СѓС„РµСЂРµ РѕР±РјРµРЅР°, 
+			// С‚Рѕ СЃРґРµР»Р°РµРј РЅРµРґРѕСЃС‚СѓРїРЅС‹Рј РїСѓРЅРєС‚ РјРµРЅСЋ "Р’СЃС‚Р°РІРёС‚СЊ"
 			EnableMenuItem(hMenu, ID_PASTE, MF_BYCOMMAND | MF_GRAYED);
 
-		// Существует ли возможность отмены последнего действия?
+		// РЎСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС‚РјРµРЅС‹ РїРѕСЃР»РµРґРЅРµРіРѕ РґРµР№СЃС‚РІРёСЏ?
 		if (SendMessage(hEdit, EM_CANUNDO, 0, 0))
-			// Если существует возможность отмены последнего действия,
-			// то сделаем разрешённым пункт меню "Отменить"
+			// Р•СЃР»Рё СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС‚РјРµРЅС‹ РїРѕСЃР»РµРґРЅРµРіРѕ РґРµР№СЃС‚РІРёСЏ,
+			// С‚Рѕ СЃРґРµР»Р°РµРј СЂР°Р·СЂРµС€С‘РЅРЅС‹Рј РїСѓРЅРєС‚ РјРµРЅСЋ "РћС‚РјРµРЅРёС‚СЊ"
 			EnableMenuItem(hMenu, ID_UNDO, MF_BYCOMMAND | MF_ENABLED);
 		else
-			// Если отсутствует возможность отмены последнего действия,
-			// то сделаем недоступным пункт меню "Отменить"
+			// Р•СЃР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС‚РјРµРЅС‹ РїРѕСЃР»РµРґРЅРµРіРѕ РґРµР№СЃС‚РІРёСЏ,
+			// С‚Рѕ СЃРґРµР»Р°РµРј РЅРµРґРѕСЃС‚СѓРїРЅС‹Рј РїСѓРЅРєС‚ РјРµРЅСЋ "РћС‚РјРµРЅРёС‚СЊ"
 			EnableMenuItem(hMenu, ID_UNDO, MF_BYCOMMAND | MF_GRAYED);
 
-		// Определим длину текста в Edit Control
+		// РћРїСЂРµРґРµР»РёРј РґР»РёРЅСѓ С‚РµРєСЃС‚Р° РІ Edit Control
 		int length = SendMessage(hEdit, WM_GETTEXTLENGTH, 0, 0);
-		// Выделен ли весь текст в Edit Control?
+		// Р’С‹РґРµР»РµРЅ Р»Рё РІРµСЃСЊ С‚РµРєСЃС‚ РІ Edit Control?
 		if (length != wEndPosition - wBeginPosition)
-			//Если не весь текст выделен в Edit Control,
-			// то сделаем разрешённым пункт меню "Выделить всё"
+			//Р•СЃР»Рё РЅРµ РІРµСЃСЊ С‚РµРєСЃС‚ РІС‹РґРµР»РµРЅ РІ Edit Control,
+			// С‚Рѕ СЃРґРµР»Р°РµРј СЂР°Р·СЂРµС€С‘РЅРЅС‹Рј РїСѓРЅРєС‚ РјРµРЅСЋ "Р’С‹РґРµР»РёС‚СЊ РІСЃС‘"
 			EnableMenuItem(hMenu, ID_SELECTALL, MF_BYCOMMAND | MF_ENABLED);
 		else
-			// Если выделен весь текст в Edit Control,
-			// то сделаем недоступным пункт меню "Выделить всё"
+			// Р•СЃР»Рё РІС‹РґРµР»РµРЅ РІРµСЃСЊ С‚РµРєСЃС‚ РІ Edit Control,
+			// С‚Рѕ СЃРґРµР»Р°РµРј РЅРµРґРѕСЃС‚СѓРїРЅС‹Рј РїСѓРЅРєС‚ РјРµРЅСЋ "Р’С‹РґРµР»РёС‚СЊ РІСЃС‘"
 			EnableMenuItem(hMenu, ID_SELECTALL, MF_BYCOMMAND | MF_GRAYED);
 	}
 }
 
 void CMenuBarDlg::Cls_OnMenuSelect(HWND hwnd, HMENU hmenu, int item, HMENU hmenuPopup, UINT flags)
 {
-	if (flags & MF_POPUP) // Проверим, является ли выделенный пункт меню заголовком выпадающего подменю?
+	if (flags & MF_POPUP) // РџСЂРѕРІРµСЂРёРј, СЏРІР»СЏРµС‚СЃСЏ Р»Рё РІС‹РґРµР»РµРЅРЅС‹Р№ РїСѓРЅРєС‚ РјРµРЅСЋ Р·Р°РіРѕР»РѕРІРєРѕРј РІС‹РїР°РґР°СЋС‰РµРіРѕ РїРѕРґРјРµРЅСЋ?
 	{
-		// Выделенный пункт меню является заголовком выпадающего подменю
-		SendMessage(hStatus, SB_SETTEXT, 0, 0); // Убираем текст со строки состояния
+		// Р’С‹РґРµР»РµРЅРЅС‹Р№ РїСѓРЅРєС‚ РјРµРЅСЋ СЏРІР»СЏРµС‚СЃСЏ Р·Р°РіРѕР»РѕРІРєРѕРј РІС‹РїР°РґР°СЋС‰РµРіРѕ РїРѕРґРјРµРЅСЋ
+		SendMessage(hStatus, SB_SETTEXT, 0, 0); // РЈР±РёСЂР°РµРј С‚РµРєСЃС‚ СЃРѕ СЃС‚СЂРѕРєРё СЃРѕСЃС‚РѕСЏРЅРёСЏ
 	}
 	else
 	{
-		// Выделенный пункт меню является конечным пунктом (пункт меню "команда")
+		// Р’С‹РґРµР»РµРЅРЅС‹Р№ РїСѓРЅРєС‚ РјРµРЅСЋ СЏРІР»СЏРµС‚СЃСЏ РєРѕРЅРµС‡РЅС‹Рј РїСѓРЅРєС‚РѕРј (РїСѓРЅРєС‚ РјРµРЅСЋ "РєРѕРјР°РЅРґР°")
 		TCHAR buf[200];
-		// Получим дескриптор текущего экземпляра приложения
+		// РџРѕР»СѓС‡РёРј РґРµСЃРєСЂРёРїС‚РѕСЂ С‚РµРєСѓС‰РµРіРѕ СЌРєР·РµРјРїР»СЏСЂР° РїСЂРёР»РѕР¶РµРЅРёСЏ
 		HINSTANCE hInstance = GetModuleHandle(NULL);
-		// Зарузим строку из таблицы строк, расположенной в ресурсах приложения
-		// При этом идентификатор загружаемой строки строго соответствует идентификатору выделенного пункта меню
+		// Р—Р°СЂСѓР·РёРј СЃС‚СЂРѕРєСѓ РёР· С‚Р°Р±Р»РёС†С‹ СЃС‚СЂРѕРє, СЂР°СЃРїРѕР»РѕР¶РµРЅРЅРѕР№ РІ СЂРµСЃСѓСЂСЃР°С… РїСЂРёР»РѕР¶РµРЅРёСЏ
+		// РџСЂРё СЌС‚РѕРј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р·Р°РіСЂСѓР¶Р°РµРјРѕР№ СЃС‚СЂРѕРєРё СЃС‚СЂРѕРіРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂСѓ РІС‹РґРµР»РµРЅРЅРѕРіРѕ РїСѓРЅРєС‚Р° РјРµРЅСЋ
 		LoadString(hInstance, item, buf, 200);
-		// Выводим в строку состояния контекстную справку, соответствующую выделенному пункту меню
+		// Р’С‹РІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ СЃРѕСЃС‚РѕСЏРЅРёСЏ РєРѕРЅС‚РµРєСЃС‚РЅСѓСЋ СЃРїСЂР°РІРєСѓ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ РІС‹РґРµР»РµРЅРЅРѕРјСѓ РїСѓРЅРєС‚Сѓ РјРµРЅСЋ
 		SendMessage(hStatus, SB_SETTEXT, 0, LPARAM(buf));
 	}
 }
@@ -260,7 +260,7 @@ BOOL CALLBACK CMenuBarDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARA
 		HANDLE_MSG(hwnd, WM_INITMENUPOPUP, ptr->Cls_OnInitMenuPopup);
 		HANDLE_MSG(hwnd, WM_MENUSELECT, ptr->Cls_OnMenuSelect);
 	}
-	// обработка сообщений, посылаемых из немодального диалогового окна
+	// РѕР±СЂР°Р±РѕС‚РєР° СЃРѕРѕР±С‰РµРЅРёР№, РїРѕСЃС‹Р»Р°РµРјС‹С… РёР· РЅРµРјРѕРґР°Р»СЊРЅРѕРіРѕ РґРёР°Р»РѕРіРѕРІРѕРіРѕ РѕРєРЅР°
 	if (message == WM_FR)
 		ptr->MessageFromFindReplace();
 	return FALSE;
@@ -271,7 +271,7 @@ void CMenuBarDlg::MemAlloc(int size)
 	BuferText = (char*)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, size);
 	if (BuferText == 0)
 	{
-		MessageBox(ptr->hDialog, "Ошибка в куче", "", MB_ICONERROR);
+		MessageBox(ptr->hDialog, "РћС€РёР±РєР° РІ РєСѓС‡Рµ", "", MB_ICONERROR);
 		ExitProcess(0);
 	}
 }
@@ -307,7 +307,7 @@ void CMenuBarDlg::OpenDoc()
 		hFile = CreateFile(ofn.lpstrFile, GENERIC_READ, FILE_READ_DATA, NULL, OPEN_EXISTING, 0, 0);
 		if (hFile == INVALID_HANDLE_VALUE)
 		{
-			MessageBox(ptr->hDialog, "Невозможно открыть файл", "Ошибка", MB_ICONERROR);
+			MessageBox(ptr->hDialog, "РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»", "РћС€РёР±РєР°", MB_ICONERROR);
 			return;
 		}
 		SizeDoc = GetFileSize(hFile, NULL);
@@ -315,7 +315,7 @@ void CMenuBarDlg::OpenDoc()
 		if (SizeDoc>10000000)
 		{
 			CloseHandle(hFile);
-			MessageBox(ptr->hDialog, "Размер открываемого файла превышает предел", "Ошибка", MB_ICONERROR);
+			MessageBox(ptr->hDialog, "Р Р°Р·РјРµСЂ РѕС‚РєСЂС‹РІР°РµРјРѕРіРѕ С„Р°Р№Р»Р° РїСЂРµРІС‹С€Р°РµС‚ РїСЂРµРґРµР»", "РћС€РёР±РєР°", MB_ICONERROR);
 			return;
 		}
 		MemAlloc(SizeDoc);
@@ -347,7 +347,7 @@ void CMenuBarDlg::SaveDocS()
 	hFile = CreateFile(Opffile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile == INVALID_HANDLE_VALUE)
 	{
-		MessageBox(ptr->hDialog, "Невозможно сохранить файл", "Ошибка", MB_ICONERROR);
+		MessageBox(ptr->hDialog, "РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕС…СЂР°РЅРёС‚СЊ С„Р°Р№Р»", "РћС€РёР±РєР°", MB_ICONERROR);
 		return;
 	}
 	WriteFile(hFile, BuferText, SizeDoc, &nBytesRead, NULL);
@@ -395,7 +395,7 @@ void CMenuBarDlg::exit()
 {
 	if (SendMessage(hEdit, EM_GETMODIFY, 0, 0))
 	{
-		MesRet = MessageBox(ptr->hDialog, "Текст был изменен\nСохранить изменения?", "", MB_YESNOCANCEL | MB_ICONINFORMATION);
+		MesRet = MessageBox(ptr->hDialog, "РўРµРєСЃС‚ Р±С‹Р» РёР·РјРµРЅРµРЅ\nРЎРѕС…СЂР°РЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ?", "", MB_YESNOCANCEL | MB_ICONINFORMATION);
 		switch (MesRet)
 		{
 		case IDYES:
@@ -416,94 +416,94 @@ void CMenuBarDlg::exit()
 
 void CMenuBarDlg::OnFind()
 {
-	// Проверим, открыто ли окно поиска
+	// РџСЂРѕРІРµСЂРёРј, РѕС‚РєСЂС‹С‚Рѕ Р»Рё РѕРєРЅРѕ РїРѕРёСЃРєР°
 	if (hFR)
 	{
-		//Активизируем окно поиска
+		//РђРєС‚РёРІРёР·РёСЂСѓРµРј РѕРєРЅРѕ РїРѕРёСЃРєР°
 		SetForegroundWindow(hFR);
 		return;
 	}
-	// обнуляем структуру FINDREPLACE
+	// РѕР±РЅСѓР»СЏРµРј СЃС‚СЂСѓРєС‚СѓСЂСѓ FINDREPLACE
 	ZeroMemory(&fr, sizeof(fr));
 	DWORD start, end;
-	// получим весь текст, находяшийся в текстовом поле ввода
+	// РїРѕР»СѓС‡РёРј РІРµСЃСЊ С‚РµРєСЃС‚, РЅР°С…РѕРґСЏС€РёР№СЃСЏ РІ С‚РµРєСЃС‚РѕРІРѕРј РїРѕР»Рµ РІРІРѕРґР°
 	GetWindowText(hEdit, alltext, 65536);
-	// получим границы выделения фрагмента текста
+	// РїРѕР»СѓС‡РёРј РіСЂР°РЅРёС†С‹ РІС‹РґРµР»РµРЅРёСЏ С„СЂР°РіРјРµРЅС‚Р° С‚РµРєСЃС‚Р°
 	SendMessage(hEdit, EM_GETSEL, WPARAM(&start), LPARAM(&end));
-	// скопируем в буфер выделенный фрагмент текста
+	// СЃРєРѕРїРёСЂСѓРµРј РІ Р±СѓС„РµСЂ РІС‹РґРµР»РµРЅРЅС‹Р№ С„СЂР°РіРјРµРЅС‚ С‚РµРєСЃС‚Р°
 	_tcsncpy(bufFind, alltext + start, end - start);
 	bufFind[end - start] = TEXT('\0');
 	fr.lStructSize = sizeof(fr);
-	// главный диалог является окном-владелецем
+	// РіР»Р°РІРЅС‹Р№ РґРёР°Р»РѕРі СЏРІР»СЏРµС‚СЃСЏ РѕРєРЅРѕРј-РІР»Р°РґРµР»РµС†РµРј
 	fr.hwndOwner = hDialog;
-	// указатель на буфер, содержащий строку для поиска
+	// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р±СѓС„РµСЂ, СЃРѕРґРµСЂР¶Р°С‰РёР№ СЃС‚СЂРѕРєСѓ РґР»СЏ РїРѕРёСЃРєР°
 	fr.lpstrFindWhat = bufFind;
 	fr.wFindWhatLen = 100;
-	// поиск от текущего положения каретки в тексте до конца документа
+	// РїРѕРёСЃРє РѕС‚ С‚РµРєСѓС‰РµРіРѕ РїРѕР»РѕР¶РµРЅРёСЏ РєР°СЂРµС‚РєРё РІ С‚РµРєСЃС‚Рµ РґРѕ РєРѕРЅС†Р° РґРѕРєСѓРјРµРЅС‚Р°
 	fr.Flags = FR_DOWN;
-	// отображаем диалог Найти
+	// РѕС‚РѕР±СЂР°Р¶Р°РµРј РґРёР°Р»РѕРі РќР°Р№С‚Рё
 	hFR = FindText(&fr);
 }
 
 void CMenuBarDlg::OnReplace()
 {
-	// Проверим, открыто ли окно замены
+	// РџСЂРѕРІРµСЂРёРј, РѕС‚РєСЂС‹С‚Рѕ Р»Рё РѕРєРЅРѕ Р·Р°РјРµРЅС‹
 	if (hFR)
 	{
-		// Активизируем окно замены
+		// РђРєС‚РёРІРёР·РёСЂСѓРµРј РѕРєРЅРѕ Р·Р°РјРµРЅС‹
 		SetForegroundWindow(hFR);
 		return;
 	}
-	// обнуляем структуру FINDREPLACE
+	// РѕР±РЅСѓР»СЏРµРј СЃС‚СЂСѓРєС‚СѓСЂСѓ FINDREPLACE
 	ZeroMemory(&fr, sizeof(fr));
 	DWORD start, end;
-	// обнуляем буфер, предназначенный для хранения замещающей строки 
+	// РѕР±РЅСѓР»СЏРµРј Р±СѓС„РµСЂ, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ Р·Р°РјРµС‰Р°СЋС‰РµР№ СЃС‚СЂРѕРєРё 
 	ZeroMemory(&bufReplace, sizeof(bufReplace));
-	// получим весь текст, находяшийся в текстовом поле ввода
+	// РїРѕР»СѓС‡РёРј РІРµСЃСЊ С‚РµРєСЃС‚, РЅР°С…РѕРґСЏС€РёР№СЃСЏ РІ С‚РµРєСЃС‚РѕРІРѕРј РїРѕР»Рµ РІРІРѕРґР°
 	GetWindowText(hEdit, alltext, 65536);
-	// получим границы выделения фрагмента текста
+	// РїРѕР»СѓС‡РёРј РіСЂР°РЅРёС†С‹ РІС‹РґРµР»РµРЅРёСЏ С„СЂР°РіРјРµРЅС‚Р° С‚РµРєСЃС‚Р°
 	SendMessage(hEdit, EM_GETSEL, WPARAM(&start), LPARAM(&end));
-	// скопируем в буфер выделенный фрагмент текста
+	// СЃРєРѕРїРёСЂСѓРµРј РІ Р±СѓС„РµСЂ РІС‹РґРµР»РµРЅРЅС‹Р№ С„СЂР°РіРјРµРЅС‚ С‚РµРєСЃС‚Р°
 	_tcsncpy(bufFind, alltext + start, end - start);
 	bufFind[end - start] = TEXT('\0');
 	fr.lStructSize = sizeof(fr);
-	// главный диалог является окном-владелецем
+	// РіР»Р°РІРЅС‹Р№ РґРёР°Р»РѕРі СЏРІР»СЏРµС‚СЃСЏ РѕРєРЅРѕРј-РІР»Р°РґРµР»РµС†РµРј
 	fr.hwndOwner = hDialog;
-	// указатель на буфер, содержащий строку для поиска
+	// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р±СѓС„РµСЂ, СЃРѕРґРµСЂР¶Р°С‰РёР№ СЃС‚СЂРѕРєСѓ РґР»СЏ РїРѕРёСЃРєР°
 	fr.lpstrFindWhat = bufFind;
 	fr.wFindWhatLen = 100;
-	// указатель на буфер, содержащий строку для замены
+	// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р±СѓС„РµСЂ, СЃРѕРґРµСЂР¶Р°С‰РёР№ СЃС‚СЂРѕРєСѓ РґР»СЏ Р·Р°РјРµРЅС‹
 	fr.lpstrReplaceWith = bufReplace;
 	fr.wReplaceWithLen = 100;
-	// поиск от текущего положения каретки в тексте до конца документа
+	// РїРѕРёСЃРє РѕС‚ С‚РµРєСѓС‰РµРіРѕ РїРѕР»РѕР¶РµРЅРёСЏ РєР°СЂРµС‚РєРё РІ С‚РµРєСЃС‚Рµ РґРѕ РєРѕРЅС†Р° РґРѕРєСѓРјРµРЅС‚Р°
 	fr.Flags = FR_DOWN;
-	// отображаем диалог Заменить
+	// РѕС‚РѕР±СЂР°Р¶Р°РµРј РґРёР°Р»РѕРі Р—Р°РјРµРЅРёС‚СЊ
 	hFR = ReplaceText(&fr);
 }
 
 void CMenuBarDlg::MessageFromFindReplace()
 {
 	if (fr.Flags & FR_REPLACEALL)
-		MessageBox(hDialog, TEXT("Нажата кнопка \"Заменить всё\""), TEXT("Поиск и замена"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(hDialog, TEXT("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° \"Р—Р°РјРµРЅРёС‚СЊ РІСЃС‘\""), TEXT("РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°"), MB_OK | MB_ICONINFORMATION);
 
 	if (fr.Flags & FR_REPLACE)
 	{
-		MessageBox(hDialog, TEXT("Нажата кнопка \"Заменить\""), TEXT("Поиск и замена"), MB_OK | MB_ICONINFORMATION);
-		// заменяем выделенный фрагмент текста на строку, находящуюся в буфере bufReplace
+		MessageBox(hDialog, TEXT("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° \"Р—Р°РјРµРЅРёС‚СЊ\""), TEXT("РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°"), MB_OK | MB_ICONINFORMATION);
+		// Р·Р°РјРµРЅСЏРµРј РІС‹РґРµР»РµРЅРЅС‹Р№ С„СЂР°РіРјРµРЅС‚ С‚РµРєСЃС‚Р° РЅР° СЃС‚СЂРѕРєСѓ, РЅР°С…РѕРґСЏС‰СѓСЋСЃСЏ РІ Р±СѓС„РµСЂРµ bufReplace
 		SendMessage(hEdit, EM_REPLACESEL, WPARAM(TRUE), (LPARAM)bufReplace);
 	}
 
 	if (fr.Flags & FR_FINDNEXT)
 	{
-		MessageBox(hDialog, TEXT("Нажата кнопка \"Найти далее\""), TEXT("Поиск и замена"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(hDialog, TEXT("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° \"РќР°Р№С‚Рё РґР°Р»РµРµ\""), TEXT("РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°"), MB_OK | MB_ICONINFORMATION);
 		DWORD Start, End;
-		// выполняем поиск искомой строки
+		// РІС‹РїРѕР»РЅСЏРµРј РїРѕРёСЃРє РёСЃРєРѕРјРѕР№ СЃС‚СЂРѕРєРё
 		TCHAR * p = _tcsstr(alltext, bufFind);
 		if (p)
 		{
 			Start = p - alltext;
 			End = Start + _tcslen(bufFind);
-			// выделяем найденную строку
+			// РІС‹РґРµР»СЏРµРј РЅР°Р№РґРµРЅРЅСѓСЋ СЃС‚СЂРѕРєСѓ
 			SendMessage(hEdit, EM_SETSEL, Start, End);
 		}
 	}
@@ -511,20 +511,20 @@ void CMenuBarDlg::MessageFromFindReplace()
 	if (fr.Flags&FR_DIALOGTERM)
 	{
 		hFR = NULL;
-		MessageBox(hDialog, TEXT("Закрывается диалог поиска и замены!"), TEXT("Поиск и замена"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(hDialog, TEXT("Р—Р°РєСЂС‹РІР°РµС‚СЃСЏ РґРёР°Р»РѕРі РїРѕРёСЃРєР° Рё Р·Р°РјРµРЅС‹!"), TEXT("РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°"), MB_OK | MB_ICONINFORMATION);
 		return;
 	}
 
 	if (fr.Flags & FR_MATCHCASE)
-		MessageBox(hDialog, TEXT("Установлен флажок регистрозависимости"), TEXT("Поиск и замена"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(hDialog, TEXT("РЈСЃС‚Р°РЅРѕРІР»РµРЅ С„Р»Р°Р¶РѕРє СЂРµРіРёСЃС‚СЂРѕР·Р°РІРёСЃРёРјРѕСЃС‚Рё"), TEXT("РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°"), MB_OK | MB_ICONINFORMATION);
 
 	if (fr.Flags & FR_WHOLEWORD)
-		MessageBox(hDialog, TEXT("Установлен флажок поиска слова целиком"), TEXT("Поиск и замена"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(hDialog, TEXT("РЈСЃС‚Р°РЅРѕРІР»РµРЅ С„Р»Р°Р¶РѕРє РїРѕРёСЃРєР° СЃР»РѕРІР° С†РµР»РёРєРѕРј"), TEXT("РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°"), MB_OK | MB_ICONINFORMATION);
 
 	if (fr.Flags & FR_DOWN)
-		MessageBox(hDialog, TEXT("Выбран режим поиска в направлении вниз"), TEXT("Поиск и замена"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(hDialog, TEXT("Р’С‹Р±СЂР°РЅ СЂРµР¶РёРј РїРѕРёСЃРєР° РІ РЅР°РїСЂР°РІР»РµРЅРёРё РІРЅРёР·"), TEXT("РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°"), MB_OK | MB_ICONINFORMATION);
 	else
-		MessageBox(hDialog, TEXT("Выбран режим поиска в направлении вверх"), TEXT("Поиск и замена"), MB_OK | MB_ICONINFORMATION);
+		MessageBox(hDialog, TEXT("Р’С‹Р±СЂР°РЅ СЂРµР¶РёРј РїРѕРёСЃРєР° РІ РЅР°РїСЂР°РІР»РµРЅРёРё РІРІРµСЂС…"), TEXT("РџРѕРёСЃРє Рё Р·Р°РјРµРЅР°"), MB_OK | MB_ICONINFORMATION);
 
 }
 //@err,hr
